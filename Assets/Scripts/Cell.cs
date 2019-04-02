@@ -11,6 +11,9 @@ public class Cell : MonoBehaviour
     public float moveTimer;
     public float moveTime;
 
+    public int x;
+    public int y;
+
     // Private values
     SpriteRenderer rend;
     ColorRef cr;
@@ -37,6 +40,7 @@ public class Cell : MonoBehaviour
     public void MoveTo(Vector2 v)
     {
         moveTime = defaultMoveTime;
+        startPos = transform.position;
         goalPos = v;
     }
 
@@ -48,6 +52,8 @@ public class Cell : MonoBehaviour
         {
             moveTimer = 0;
             moveTime = -1f;
+            GameObject.Find("Grid").GetComponent<Grid>().Fallen();
+            transform.position = goalPos;
         }
     }
 
@@ -78,6 +84,7 @@ public class Cell : MonoBehaviour
                 break;
             case Col.POINT:
                 rend.color = new Color(0, 0, 0, 0);
+                Point.me.transform.position = transform.position;
                 break;
         }
     }
